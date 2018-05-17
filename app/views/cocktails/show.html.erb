@@ -1,0 +1,11 @@
+<div class="cocktail">
+  <h1><%= @cocktail.name %></h1>
+  <% @dose.each do |dose| %>
+  <p><%= dose.description %></p>
+  <%ing = @ingredients.find(dose.ingredient_id)  %>
+  <p><%= ing.name %></p>
+  <% end %>
+</div>
+
+<%= link_to "Home", cocktails_path %>
+<%= link_to "Create Dose",new_cocktail_dose_path(params[:id]) %>

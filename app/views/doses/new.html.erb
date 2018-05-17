@@ -1,0 +1,35 @@
+<div class="cocktail">
+  <h1><%= @cocktail.name %></h1>
+  <% @drink_dose.each do |dose| %>
+  <p><%= dose.description %></p>
+  <%ing = @ingredients.find(dose.ingredient_id)  %>
+  <p><%= ing.name %></p>
+  <% end %>
+</div>
+
+<div class="review">
+  <% @reviews.each do |review| %>
+  <h2>Rating: <%= review.rating %></h2>
+  <p><%= review.content %></p>
+  <% end %>
+</div>
+
+<%= link_to "Home", cocktails_path %>
+<%= link_to "Create Dose", new_cocktail_dose_path(params[:cocktail_id]) %>
+<%= link_to "Write Review", {:action => 'new', :id => cocktail.id} %>
+
+
+<%= form_for [@cocktail, @dose] do |f| %>
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_field :description, class: "form-control" %>
+  </div>
+
+   <div class="form-group">
+    <%= f.label :ingredient %>
+    <%= f.select :ingredient_id, @ingredients.collect { |i| [i.name, i.id] }, :include_blank => true, class: "form-control select2", id: "drop"  %>
+  </div>
+
+
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>
